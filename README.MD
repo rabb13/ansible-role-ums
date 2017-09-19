@@ -8,7 +8,7 @@ Application HomePage: http://www.universalmediaserver.com/
 Check defaults/[main.yaml](defaults/main.yml) for default settings and playbook example.
 
 
-example playbook variables-
+Example playbook variables-
 --------------------------------------------------------
 ```
 ums_version: "6.7.3"
@@ -34,8 +34,8 @@ ums_max_config:
     value: false
 ```
 ^^
-# Keep adding here for more settings.
-# List of avaiable settgins can be found in original config file in templates/ [UMS.conf_orig.j2](templates/UMS.conf_orig.j2)
+Keep adding here for more settings.
+List of avaiable settgins can be found in original config file in templates/ [UMS.conf_orig.j2](templates/UMS.conf_orig.j2)
 
 #
 
