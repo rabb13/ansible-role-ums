@@ -5,7 +5,7 @@ Application HomePage: http://www.universalmediaserver.com/
 
 --------------------------------------------------------
 
-Check defaults/main.yaml for default settings and playbook example.
+Check defaults/[main.yaml](defaults/main.yml) for default settings and playbook example.
 
 
 example playbook variables-
@@ -33,7 +33,11 @@ ums_max_config:
   - setting: resume
     value: false
 ```
-# ^^ keep adding here for more settings. list of avaiable settgins can be found in origina config file in templates/ [UMS.conf_orig.j2](templates/UMS.conf_orig.j2)
+^^
+# Keep adding here for more settings.
+# List of avaiable settgins can be found in original config file in templates/ [UMS.conf_orig.j2](templates/UMS.conf_orig.j2)
+
+#
 
 Dependencies-
 --------------------------------------------------------
