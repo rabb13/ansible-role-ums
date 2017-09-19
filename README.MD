@@ -33,8 +33,7 @@ ums_max_config:
   - setting: resume
     value: false
 ```
-# ^^ keep adding here for more settings. list of avaiable settgins can be found in origina config file in templates/UMS.conf_orig.j2
---------------------------------------------------------
+# ^^ keep adding here for more settings. list of avaiable settgins can be found in origina config file in templates/ [UMS.conf_orig.j2](templates/UMS.conf_orig.j2)
 
 Dependencies-
 --------------------------------------------------------
