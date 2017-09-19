@@ -1,0 +1,19 @@
+- name: start ums
+  service:
+    name: ums
+    state: started
+
+- name: stop ums
+  service:
+    name: ums
+    state: stopped
+
+- name: restart ums
+  service:
+    name: ums
+    state: restarted
+
+- name: reload ums
+  service:
+    name: ums
+    state: reloaded

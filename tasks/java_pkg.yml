@@ -1,0 +1,22 @@
+- name: Check if Java installed
+  command: java -version
+  register: java_check
+  ignore_errors: True
+  changed_when: False
+
+- name: Install Java on Ubuntu
+  apt:
+    name: default-jre
+    state: present
+  when:
+    - java_check|failed
+    - ansible_os_family == "Debian"
+
+- name: Install Java EL
+  yum:
+    name: java-1.8.0-openjdk
+    state: present
+  when:
+    - java_check|failed
+    - ansible_os_family == "RedHat"
+

@@ -1,0 +1,75 @@
+# Check Java -> download & decommppress -> init script -> config -> permissions -> start
+- include: java_pkg.yml
+  tags: ums
+
+- name: Creating user ums
+  user:
+    name: ums
+    home: "{{ ums_install_dir }}"
+    createhome: no
+    state: present
+  tags: ums
+
+- name: Download and Untar Universal Media Server
+  unarchive:
+    src: "{{ ums_remote_source }}"
+    dest: "{{ ums_parent_dir }}"
+    creates: "{{ ums_parent_dir }}/ums-{{ ums_version }}"
+    remote_src: yes
+    owner: ums
+    group: ums
+  tags: ums
+
+- name: Create symlink to install directory
+  file:
+     src: "{{ ums_parent_dir }}/ums-{{ ums_version }}"
+     dest: "{{ ums_install_dir }}"
+     state: link
+     owner: ums
+     group: ums
+     mode: 0755
+     force: yes
+  tags: ums
+
+- name: Install sysv init script
+  template:
+    src: ums_init.j2
+    dest: /etc/init.d/ums
+    owner: root
+    group: root
+    mode: 0755
+  tags: ums
+
+- name: Update ums config
+  template:
+    src: UMS.conf.j2
+    dest: "{{ ums_install_dir }}/UMS.conf"
+    owner: ums
+    group: ums
+  tags: ums
+  notify: restart ums
+
+- name: Update permission for install directory
+  file:
+     path: "{{ ums_parent_dir }}/ums-{{ ums_version }}"
+     state: directory
+     owner: ums
+     group: ums
+     mode: 0755
+  tags: ums
+
+- name: Create Log Directory
+  file:
+     path: "/var/log/UMS"
+     state: directory
+     owner: ums
+     group: ums
+     mode: 0755
+  tags: ums
+
+- name: Enable sysv service and started
+  service:
+    name: ums
+    enabled: yes
+    state: started
+  tags: ums

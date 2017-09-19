@@ -1,0 +1,43 @@
+# Chnage this on upgrade/downgrade
+ums_version: "6.7.3"
+
+# Requird Variables-
+ums_remote_source: "https://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-{{ ums_version }}.tgz/download"
+ums_server_name: 'ums'
+ums_parent_dir: "/etc"
+ums_install_dir: "{{ ums_parent_dir }}/ums"
+
+# Add some common configs: # Not required
+ums_common_config:
+  - setting: web_enabled 
+    value: true
+  - setting: minimized
+    value: true 
+  - setting: run_wizard 
+    value: false
+  - setting: disable_subtitles
+    value: false
+
+
+# Add common folder configs: # Not required
+ums_folder_config:
+  - setting: folders
+    value: "/media"
+
+# Add common file  configs: # Not required
+ums_file_config:
+  - setting: prettify_filenames
+    value: true
+
+# ---- You can ignore above config and add them to below --- #
+
+# Add All (and other) configs here
+ums_max_config:
+  - setting: hide_empty_folders
+    value: true
+  - setting: hide_transcode_folder
+    value: true
+
+
+
+

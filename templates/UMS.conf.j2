@@ -1,0 +1,36 @@
+# Ansible managed
+# Config file for Universal Media Server
+
+# Required settings, fetch from server name
+server_name = {{ ums_server_name }}
+uuid = {{ ums_server_name | to_uuid }}
+
+# Some common settings 
+{% if ums_common_config is defined %}
+{% for item in ums_common_config %}
+{{ item['setting'] }} = {{ item['value'] | lower }}
+{% endfor %}
+{% endif %}
+
+# Common folder settings
+{% if ums_folder_config is defined %}
+{% for item in ums_folder_config %}
+{{ item['setting'] }} = {{ item['value'] | lower }}
+{% endfor %}
+{% endif %}
+
+# Comoon file settings
+{% if ums_file_config is defined %}
+{% for item in ums_file_config %}
+{{ item['setting'] }} = {{ item['value'] | lower }}
+{% endfor %}
+{% endif %}
+
+# Additonal settings- (all supported)
+{% if ums_max_config is defined %}
+{% for item in ums_max_config %}
+{{ item['setting'] }} = {{ item['value'] | lower }}
+{% endfor %}
+{% endif %}
+
+
