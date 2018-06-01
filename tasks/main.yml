@@ -1,5 +1,13 @@
 # Check Java -> download & decommppress -> init script -> config -> permissions -> start
-- include: java_pkg.yml
+- import_tasks: java_pkg.yml
+  tags: ums
+
+- name: Install additional packages used by UMS
+  action: >
+    {{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes
+  with_items:
+    - mediainfo
+#    - mplayer
   tags: ums
 
 - name: Creating user ums
@@ -31,15 +39,6 @@
      force: yes
   tags: ums
 
-- name: Install sysv init script
-  template:
-    src: ums_init.j2
-    dest: /etc/init.d/ums
-    owner: root
-    group: root
-    mode: 0755
-  tags: ums
-
 - name: Update ums config
   template:
     src: UMS.conf.j2
@@ -67,9 +66,32 @@
      mode: 0755
   tags: ums
 
-- name: Enable sysv service and started
+- name: Add sysv init script
+  template:
+    src: ums_init.j2
+    dest: /etc/init.d/ums
+    owner: root
+    group: root
+    mode: 0755
+  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version < "7") or
+        (ansible_distribution == "Ubuntu" and ansible_distribution_major_version < "16.06")
+  tags: ums
+
+- name: Add systemd script
+  template:
+    src: ums_systemd.j2
+    dest: /etc/systemd/system/ums.service
+    owner: root
+    group: root
+    mode: 0755
+  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version >= "6") or
+        (ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= "16.04")
+  tags: ums
+
+- name: Enable daemon and started
   service:
     name: ums
     enabled: yes
     state: started
   tags: ums
+

@@ -1,0 +1,15 @@
+# Ansible Managed
+
+[Unit]
+Description=Universal Media Server
+
+[Service]
+Type=simple
+User=ums
+Group=ums
+WorkingDirectory={{ ums_install_dir }}
+ExecStart={{ ums_install_dir }}/UMS.sh console
+Environment=UMS_PROFILE={{ ums_install_dir }}/UMS.conf
+
+[Install]
+WantedBy=network.target
